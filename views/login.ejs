@@ -1,0 +1,64 @@
+<div class="container-fluid full-height">
+
+    <!-- BACK TO HOME -->
+    <nav class="navbar navbar-inverse navbar-fixed-left">
+      <div class="nav navbar-nav">
+        <nav class="navbar navbar-dark">
+          <a href="/" class="navbar-toggler" type="button">
+            <span class="navbar-toggler-icon"></span>
+          </a>
+        </nav>
+    </nav>
+  
+  <div class="container-fuild margin-top">
+    <div class="row">
+      <div class="col-md-6 image_section">
+          <img src="img/appicon_512.png" class="img-responsive img-fluid" alt="chatty logo">
+      </div>
+      <div class="col-md-6">
+        <form class="bg-form" action="/login" method="POST">
+          <div class="form-group">
+  
+            <h2 class="text-white">Log-in to your account!</h2>
+            <br>
+
+            <% 
+            try {            
+              if(register_success) { %>
+
+                <div class="alert alert-success">
+                  Successfully registered! Log into your account!
+                </div>
+
+              <% } %>
+            <% } catch(err) { register_success: false } %>
+              
+            <% try {
+
+              if(errors.length > 0) { %>
+                <div class="alert alert-danger">
+                  <% for(let i = 0; i < errors.length; i++) { %>
+                    <%= errors[i].msg %>
+                   <% } %>
+                </div>
+            <% } 
+
+            } catch(err) {} %>
+  
+            <h6 class="text-white">Username or email</h6>
+            <input type="text" value="<% typeof username != 'undefined' ? username : '' %>" class="form-control" id="username" name="username" placeholder="Username or email">
+            <br>
+            <h6 class="text-white">Password</h6>
+            <input type="password" id="password" name="password" class="form-control">
+            <a href="/passwordRecovery">¿Forgot your password?</a>    
+        </div>
+            
+          <br>
+          <button type="submit" class="btn btn-primary">Login</button>
+          <a href="/register">¿Need an account? <b>Register</b></a>
+        </form>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>

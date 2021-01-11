@@ -1,0 +1,57 @@
+<div class="container-fluid full-height">
+
+    <nav class="navbar navbar-style">
+        <a class="navbar-brand text-white navbar-img" href="/">
+            <img src="img/appicon_512.png" class="img-responsive img-fluid navbar-img" alt="">
+        </a>
+        <div class="text-justify text-white display-username-navbar">
+            <%-user.usernameWithID%>
+        </div>
+      </nav>
+
+    <div class="row">
+        <div class="col-md-3">
+            <hr>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-secondary active">
+                    <input type="radio" onclick="displayChats();" name="options" id="option1" checked> Chats
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="option2" onclick="showSearch();"> Add friends
+                </label>
+            </div>
+            <hr>
+
+            <!-- Chats -->
+            <div id="chats-tab">
+                <% for(let i = 0; i < user.friends.length; i++) { %>
+                    <%-include('users/friendList', { friend: user.friends[i] })%>
+                <%}%>
+            </div>
+            <!-- Chats -->
+
+            <!-- Add friends tab -->
+            <div id="add-friends-tab">
+                
+                <form class="form-inline" method="POST" action="/searchFriend">
+                    <input id="friends-input" class="form-control mr-sm-2" type="search" placeholder="Search friends" aria-label="Search friends" name="friendName">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </form>
+                <br>
+                <div class="friends-tab">
+                    
+                    <%if(searchFriends != "") {%>
+                        <%-include('users/searchFriends', { searchedFriends: searchFriends })%>       
+                    <%}%>
+                </div>
+            </div>
+            <!-- Add friends tab -->
+        </div>
+        <div class="col-md-9">
+            sdds
+        </div>
+    </div>
+</div>
+
+<script src="js/home.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>

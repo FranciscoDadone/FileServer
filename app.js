@@ -3,7 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const multer = require('multer');
+const mongoose = require('mongoose');
+const url = require('./config/keys').mongoURI;
 
 
 var indexRouter = require('./routes/index');
@@ -11,6 +12,25 @@ var usersRouter = require('./routes/users');
 var apiRouter = require('./routes/api');
 
 var app = express();
+
+// Connect to database (MongoDB)
+mongoose.connect(url, {
+  useUnifiedTopology: true,
+  useNewUrlParser: true
+});
+//Get the default connection
+var db = mongoose.connection;
+
+//Bind connection to error event (to get notification of connection errors)
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once('open', () => {
+console.log('MongoDB Connected! at: ', url);
+});
+
+//Cookie parser
+app.use(cookieParser({
+  secret: 'secretCode'
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
