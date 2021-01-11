@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+
+    <form method="POST" action="/api" enctype="multipart/form-data">
+      <div>
+          <label>Select multiple images:</label>
+          <input type="file" name="filename" multiple />
+      </div>
+      <div>
+          <input type="submit" name="btn_upload_multiple_images" value="Upload" />
+      </div>
+  </form>
+  </body>
+</html>
