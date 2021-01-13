@@ -26,7 +26,7 @@ router.get('/home', loginViaCookie, (req, res) => {
     }, (err, value) => {
         if(err) console.log(err);
         res.render('home', {
-            title: 'Chatty',
+            title: 'Cloud',
             user: value,
             UserModel: UserModel,
             searchFriends: "",
@@ -42,6 +42,7 @@ router.post('/logout', (req, res) => {
 });
 
 //POST Search friends
+/*
 router.post('/searchFriend', loginViaCookie, (req, res) => {
     UserModel.findOne({
         username: req.body.friendName
@@ -58,13 +59,13 @@ router.post('/searchFriend', loginViaCookie, (req, res) => {
             });
         }
     });
-});
+});*/
 
 //Login page
 router.get('/login', loginViaCookie, (req, res) => {
     if(!req.isAuthenticated) {
         res.render('login', {
-            title: 'Chatty - Login',
+            title: 'Cloud - Login',
             register_success: req.query.valid
         });
     } else {
@@ -84,7 +85,7 @@ router.get('/register', loginViaCookie, (req, res) => {
         let errors = [];
         res.render('register', {
             page: 'register',
-            title: 'Chatty - Register',
+            title: 'Cloud - Register',
             errors
         });
     } else {
