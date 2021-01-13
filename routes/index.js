@@ -5,6 +5,7 @@ const DatabaseHandler = require('./../controller/DatabaseHandler');
 const loginCookie = require('../cookies/login-cookie');
 const loginViaCookie = require('../middlewares/loginViaCookie');
 const UserModel = require('../controller/models/User');
+var fs = require('fs');
 
 const DAY_IN_MILLISECONDS = (1 * 24 * 60 * 60 * 1000);
 
@@ -19,7 +20,6 @@ router.get('/home', loginViaCookie, (req, res) => {
     if(!req.isAuthenticated) {
         res.redirect('/');
     }
-    
     UserModel.findOne({
         email: req.email,
         username: req.username
@@ -29,8 +29,7 @@ router.get('/home', loginViaCookie, (req, res) => {
             title: 'Cloud',
             user: value,
             UserModel: UserModel,
-            searchFriends: "",
-            addFriendsTab: false
+            status: ""
         })
     });
 });
@@ -60,6 +59,8 @@ router.post('/searchFriend', loginViaCookie, (req, res) => {
         }
     });
 });*/
+
+
 
 //Login page
 router.get('/login', loginViaCookie, (req, res) => {
@@ -135,7 +136,7 @@ router.post('/register', (req, res) => {
         //If there is any error it will prompt it and don´t generate the new account 
         if(errors.length > 0) {
             res.render('register', {
-                title: 'Chatty - Registro',
+                title: 'Cloud - Registro',
                 errors,
                 username,
                 email
@@ -150,12 +151,16 @@ router.post('/register', (req, res) => {
     
                     //Registering new user after hashing the password.
                     DatabaseHandler.registerNewUser(username, email, hash);
-    
+                    
+                    let dir = './storage/' + username;
+                    fs.mkdir(dir, function(err){
+                        console.log("Error creating user folder in storage");
+                    });
             }));
     
             res.redirect('login?valid=true', 200, {
                 register_success: true,
-                title: 'Chatty - Login'
+                title: 'Cloud - Login'
             });
     
         }
@@ -188,7 +193,7 @@ router.post('/login', (req, res) => {
         if(errors.length > 0) {
             console.log("User error at login: ", errors);
             res.render('login', {
-                title: 'Chatty - Login',
+                title: 'Cloud - Login',
                 errors,
                 username
             });

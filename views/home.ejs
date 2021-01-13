@@ -1,14 +1,63 @@
-<div class="container-fluid full-height">
-    <nav class="navbar navbar-style">
-        <div class="text-justify display-username-navbar">
-            <%-user.usernameWithID%>
+<div class="container-fuild margin-top">
+    <div class="row">
+        <div class="col-md-4">
+            <h1 class="justify-right">
+                Cloud Storage
+            </h1>
         </div>
-      </nav>
+        <div class="col-md-8">
+            <ul class="nav justify-content-end">
+        
+                <li class="nav-item">
+                    <span aria-current="page" class="nav-link active">
+                        <%-user.usernameWithID%>
+                    </span>
+                </li>
+                <li class="nav-item">
+                    <form action="/logout" class="nav-item">
+                        <button type="submit" class="btn btn-primary nav-link active">
+                            Logout
+                        </button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <br><br>
+<div class="container-fluid margin-top">
+    <div class="row">
+        <div class="col-md-3">
+            <form action="api" class="nav-item" method="POST" enctype="multipart/form-data">
+                <label id="input-file">
+                    <input type="file" name="filename" multiple>
+                </label>
+                <br><br>
+                <button type="submit" class="btn btn-secondary nav-link active">
+                    Upload files
+                </button>
+            </form>
+        </div>
+        <%if(!status == "" && status != "Files uploaded!") { %>
+            <div class="col-md-2">
+                <div class="alert alert-danger text-center" id="alert-boot" role="alert">
+                    <%-status%>
+                    <button type="button" class="btn btn-outline-danger" id="btn-alert" data-bs-dismiss="alert" aria-label="Close">Close</button>
+                </div>
+            </div>
+        <%} else if(status == "Files uploaded!") {%>
+            <div class="col-md-2">
+                <div class="alert alert-success alert-dismissible fade show" id="alert-boot" role="alert">
+                    <%-status%>
+                    <button type="button" class="btn btn-outline-success" id="btn-alert" data-bs-dismiss="alert" aria-label="Close">Close</button>
+                </div>
+            </div>
+        <%}%>
+        
+    </div>
 </div>
-<footer>
-    <form action="/logout">
-        <button type="submit" class="btn btn-primary">
-            Logout
-        </button>
-    </form>
-</footer>
+<div class="container-fuild margin-top">
+
+    <div class="row">
+        
+    </div>
+</div>
