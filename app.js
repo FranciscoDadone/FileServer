@@ -10,6 +10,7 @@ const url = require('./config/keys').mongoURI;
 
 var indexRouter = require('./routes/index');
 var apiRouter = require('./routes/api');
+var deleteRouter = require('./routes/delete');
 
 var app = express();
 
@@ -41,13 +42,15 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(__dirname + '/public'));
+app.use(express.static('public'));
 
 
 
 
 app.use('/', indexRouter);
-app.use('/api', apiRouter);
+app.use('/home', apiRouter);
+app.use('/delete', deleteRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

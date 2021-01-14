@@ -4,10 +4,11 @@ const bcrypt = require('bcrypt');
 const DatabaseHandler = require('./../controller/DatabaseHandler');
 const loginCookie = require('../cookies/login-cookie');
 const loginViaCookie = require('../middlewares/loginViaCookie');
-const UserModel = require('../controller/models/User');
 var fs = require('fs');
 
 const DAY_IN_MILLISECONDS = (1 * 24 * 60 * 60 * 1000);
+
+router.use(express.static('public'));
 
 
 //index page
@@ -15,52 +16,11 @@ router.get('/', (req, res) => {
     res.redirect('login');
 });
 
-//Home page
-router.get('/home', loginViaCookie, (req, res) => {
-    if(!req.isAuthenticated) {
-        res.redirect('/');
-    }
-    UserModel.findOne({
-        email: req.email,
-        username: req.username
-    }, (err, value) => {
-        if(err) console.log(err);
-        res.render('home', {
-            title: 'Cloud',
-            user: value,
-            UserModel: UserModel,
-            status: ""
-        })
-    });
-});
-
 //Logout
 router.post('/logout', (req, res) => {
     res.clearCookie('auth');
     res.redirect('/');
 });
-
-//POST Search friends
-/*
-router.post('/searchFriend', loginViaCookie, (req, res) => {
-    UserModel.findOne({
-        username: req.body.friendName
-    }, (err, value) => {
-        if(err) console.log(err);
-
-        if(value) {
-            res.render('home', {
-                title: 'Chatty',
-                UserModel: UserModel,
-                searchFriends: value.usernameWithID,
-                addFriendsTab: true,
-                user: req.user
-            });
-        }
-    });
-});*/
-
-
 
 //Login page
 router.get('/login', loginViaCookie, (req, res) => {

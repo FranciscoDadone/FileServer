@@ -20,3 +20,38 @@ a {
 #btn-alert {
   text-align: right;
 }
+
+#folder {
+  padding: 5px;
+  font-size: 25px;
+  border-radius: 10px;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+#trash {
+  font-size: 20px;
+  padding: 10px;
+}
+
+#form-trash {
+  width: 100%;
+  text-align: right;
+}
+
+#form-download {
+  width: 100%;
+  text-align: left;
+}
+
+#file:hover {
+  background-color: rgb(37, 36, 36);
+}
+
+#file {
+  padding: 5px;
+  font-size: 25px;
+  border-radius: 10px;
+  width: 100%;
+  margin-bottom: 5px;
+}
