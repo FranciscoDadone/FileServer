@@ -1,5 +1,3 @@
-const MongoClient = require('mongodb').MongoClient;
-const url = require('../config/keys').mongoURI;
 const bcrypt = require('bcrypt');
 const UserModel = require('./models/User');
 
@@ -41,19 +39,27 @@ function registerNewUser(username, email, password) {
 
 
 //Handle if there is an email already registered in the database
-function isAlreadyRegistered(email, callback) {
+function isAlreadyRegistered(email, username, callback) {
     
-    UserModel.findOne({
-        email: email
+    UserModel.model('User').find({
+        username: username
     }, (err, value) => {
         if(err) console.log(err);
-        if(value != null) {
+        if(value[0] != null) {
             callback(true);
         } else {
-            callback(false);
+            UserModel.model('User').find({
+                username: username
+            }, (err, value) => {
+                if(err) console.log(err);
+                if(value[0] != null) {
+                    callback(true);
+                } else {
+                    callback(false);
+                }
+            });
         }
     });
-
 }
 
 function loginAuth(username, password, callback) {

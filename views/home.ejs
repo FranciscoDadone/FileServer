@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-4">
             <h1 class="justify-right">
-                Cloud Storage
+                <i class="fas fa-cloud"></i> Cloud Storage
             </h1>
         </div>
         <div class="col-md-8">
@@ -10,13 +10,15 @@
         
                 <li class="nav-item">
                     <span aria-current="page" class="nav-link active">
-                        <%-user.usernameWithID%>
+                        <h4>
+                            <%-user.usernameWithID%>
+                        </h4>
                     </span>
                 </li>
                 <li class="nav-item">
                     <form action="/logout" class="nav-item">
                         <button type="submit" class="btn btn-primary nav-link active">
-                            Logout
+                            <i class="fas fa-sign-out-alt"></i> Logout
                         </button>
                     </form>
                 </li>
@@ -119,8 +121,8 @@
                             <i class="fas fa-trash-alt"></i>
                         </button>
                     </form>
-                    <form action="" method="post" id="form-download" class="col">
-                        <button type="button" class="btn btn-outline-info" id="trash">
+                    <form action="<%= '/download' + pathWithoutHome + '-' + req.query.dirname + '?filename=' + filename %>" method="post" id="form-download" class="col">
+                        <button type="submit" class="btn btn-outline-info" id="trash">
                             <i class="fas fa-download"></i>
                         </button>
                     </form>

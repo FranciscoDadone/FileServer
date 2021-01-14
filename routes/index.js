@@ -87,10 +87,10 @@ router.post('/register', (req, res) => {
 
 
     //Handle if the email is already registered
-    DatabaseHandler.isAlreadyRegistered(email, (emailInUse) => {
-        
-        if(emailInUse) {
-            errors.push({ msg: '<!> That email is already registered.' });
+    DatabaseHandler.isAlreadyRegistered(email, username, (registered) => {
+    
+        if(registered) {
+            errors.push({ msg: '<!> That email or username is already registered.' });
         }
 
         //If there is any error it will prompt it and don´t generate the new account 

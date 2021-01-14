@@ -70,7 +70,16 @@ router.get('/:path?', loginViaCookie, (req,res) => {
 router.post('/:path?', loginViaCookie, (req, res) => {
     if(!req.files || Object.keys(req.files).length === 0 || !req.isAuthenticated) {
         if(!req.files || Object.keys(req.files).length === 0){
-            res.redirect('/home?status=err');
+            var r = '/home/?status=err';
+            if(req.params.path != undefined) {
+                r = '/home/' + req.params.path + '?status=err';
+            } else if(req.query.dirname != undefined) {
+                r = '/home/' + req.query.dirname + '?status=err';
+            }
+            if((req.params.path != undefined) && (req.query.dirname != "")) {
+                r = '/home/' + req.params.path + "-" + req.query.dirname + '?status=err';
+            }
+            res.redirect(r);
         } else if(!req.isAuthenticated) {
             res.render('home', {
                 user: req.user,
@@ -148,7 +157,14 @@ router.post('/:path?', loginViaCookie, (req, res) => {
             var r = '/home/?status=success';
             if(req.params.path != undefined) {
                 r = '/home/' + req.params.path + '?status=success';
+            } else if(req.query.dirname != undefined) {
+                r = '/home/' + req.query.dirname + '?status=success';
             }
+            if((req.params.path != undefined) && (req.query.dirname != undefined)) {
+                console.log("acá");
+                r = '/home/' + req.params.path + "-" + req.query.dirname + '?status=success';
+            }
+            
             res.redirect(r);
         }
     }
