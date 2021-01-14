@@ -86,7 +86,7 @@ router.post('/:path?', loginViaCookie, (req, res) => {
                 if(req.params.path == undefined && req.query.dirname) {
                     var route = "./storage/" + req.username + "/" + req.query.dirname + "/" + file.name;
                     var dir = "./storage/" + req.username + "/" + req.query.dirname;
-                } else if(req.params.path != "" && req.query.dirname == undefined) {
+                } else if(req.params.path != undefined && req.query.dirname == undefined) {
                     var route = "./storage/" + req.username + "/" + req.params.path.replace(/-/g, '/') + "/" + file.name;
                     var dir = "./storage/" + req.username + "/" + req.params.path.replace(/-/g, '/');
                 } else if(req.params.path && req.query.dirname){
@@ -113,17 +113,21 @@ router.post('/:path?', loginViaCookie, (req, res) => {
             
             } else {
                 for(let i = 0 ; i < file.length; i++){
-
+                    
                     if(req.params.path == undefined && req.query.dirname) {
+                        console.log("4");
                         var route = "./storage/" + req.username + "/" + req.query.dirname + "/" + file[i].name;
                         var dir = "./storage/" + req.username + "/" + req.query.dirname;
-                    } else if(req.params.path != "" && req.query.dirname == undefined) {
+                    } else if(req.params.path != undefined && req.query.dirname == undefined) {
+                        console.log("1");
                         var route = "./storage/" + req.username + "/" + req.params.path.replace(/-/g, '/') + "/" + file[i].name;
                         var dir = "./storage/" + req.username + "/" + req.params.path.replace(/-/g, '/');
                     } else if(req.params.path && req.query.dirname){
+                        console.log("2");
                         var route = "./storage/" + req.username + "/" + req.params.path.replace(/-/g, '/') + "/" + req.query.dirname + "/" + file[i].name;
                         var dir = "./storage/" + req.username + "/" + req.params.path.replace(/-/g, '/') + "/" + req.query.dirname;
                     } else {
+                        console.log("3");
                         var route = "./storage/" + req.username + "/" + file[i].name;
                         var dir = "./storage/" + req.username;
                     }
@@ -141,8 +145,10 @@ router.post('/:path?', loginViaCookie, (req, res) => {
                     })
                 }
             }
-            var r = '/home/' + req.params.path + '?status=success'
-            console.log(r);
+            var r = '/home/?status=success';
+            if(req.params.path != undefined) {
+                r = '/home/' + req.params.path + '?status=success';
+            }
             res.redirect(r);
         }
     }

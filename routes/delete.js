@@ -7,20 +7,35 @@ var path = require('path');
 
 router.post('/:path?', loginViaCookie, (req, res) => {
     let dirRedirect = req.params.path;
+    let dir;
     
-    let dir = path.join(__dirname + "/../storage/" + req.username + "/" + req.query.filename);
-    if(req.params.path != '-undefined' || req.params.path != undefined) {
-        dir = path.join(__dirname + "/../storage/" + req.username + "/" + req.params.path.replace(/-/g, '/').replace('/undefined', '') + "/" + req.query.filename);
-        console.log(req.params.path)
+
+    if(req.query.filename != undefined) {
+        dir = path.join(__dirname + "/../storage/" + req.username + "/" + req.query.filename);
+    } else if(req.query.dirname != undefined) {
+        dir = path.join(__dirname + "/../storage/" + req.username + "/" + req.query.dirname);
     }
 
-    if(dirRedirect == '-undefined') {
+    if(req.params.path != '-undefined' && req.params.path != undefined) {
+        if(req.query.filename != undefined) {
+            dir = path.join(__dirname + "/../storage/" + req.username + "/" + req.params.path.replace(/-/g, '/').replace('/undefined', '') + "/" + req.query.filename);
+        } else if(req.query.dirname != undefined) {
+            dir = path.join(__dirname + "/../storage/" + req.username + "/" + req.params.path.replace(/-/g, '/').replace('/undefined', '') + "/" + req.query.dirname);
+        }
+    }
+
+    if(dirRedirect == '-undefined' || dirRedirect == undefined) {
         dirRedirect = "/";
     }
     
-    shell.rm(dir);
+    if(fs.lstatSync(path.resolve(dir)).isDirectory()) {
+        shell.rm('-rf', dir);
+    } else {
+        shell.rm(dir);
+    }
+
     console.log(dir + " DELETED");
-    res.redirect("/home/" + dirRedirect.replace('-undefined', ''));
+    res.redirect("/home" + dirRedirect.replace('-undefined', ''));
 
 });
 

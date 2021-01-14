@@ -82,8 +82,8 @@
             </form>
         </div>
         <div class="col-md-2">
-            <form action="" method="post" id="form-trash">
-                <button type="button" class="btn btn-outline-danger" id="trash">
+            <form action="<%= '/delete' + pathWithoutHome + '?dirname=' + dirname %>" method="post" id="form-trash">
+                <button type="submit" class="btn btn-outline-danger" id="trash">
                     <i class="fas fa-trash-alt"></i>
                 </button>
             </form>
