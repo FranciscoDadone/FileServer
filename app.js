@@ -11,6 +11,7 @@ const url = require('./config/keys').mongoURI;
 var indexRouter = require('./routes/index');
 var apiRouter = require('./routes/api');
 var deleteRouter = require('./routes/delete');
+var createRouter = require('./routes/create');
 
 var app = express();
 
@@ -44,12 +45,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static('public'));
 
-
-
-
 app.use('/', indexRouter);
 app.use('/home', apiRouter);
 app.use('/delete', deleteRouter);
+app.use('/create', createRouter);
 
 
 // catch 404 and forward to error handler

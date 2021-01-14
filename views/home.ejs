@@ -60,9 +60,18 @@
 <br><br>
 <div class="container-fuild margin-top text-center">
     <div class="row">
-        <button type="button" class="btn btn-primary btn-lg">
-            Create new folder
-        </button>
+        <form action="<%= '/create' + pathWithoutHome + '-' + req.query.dirname %>" method="post">
+            <div class="row">
+                <div class="col">
+                    <button type="submit" class="btn btn-primary btn-lg btn-create">
+                        Create new folder
+                    </button>
+                </div>
+                <div class="col">
+                    <input type="text" placeholder="Folder name" name="newFolder" class="form-control" id="floatingInput">
+                </div>
+            </div>            
+        </form>
     </div>
     <br><br>
     <!-- FOLDERS -->
@@ -82,7 +91,11 @@
             </form>
         </div>
         <div class="col-md-2">
+            <% if(req.query.dirname) { %>
+            <form action="<%= '/delete' + pathWithoutHome + req.query.dirname + '?dirname=' + dirname %>" method="post" id="form-trash">
+            <% } else { %>
             <form action="<%= '/delete' + pathWithoutHome + '?dirname=' + dirname %>" method="post" id="form-trash">
+            <% } %>
                 <button type="submit" class="btn btn-outline-danger" id="trash">
                     <i class="fas fa-trash-alt"></i>
                 </button>

@@ -55,3 +55,9 @@ a {
   width: 100%;
   margin-bottom: 5px;
 }
+
+.btn-create {
+  padding: 4px;
+  padding-bottom: 3px;
+  margin-right: -30px;
+}

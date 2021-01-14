@@ -35,7 +35,7 @@ router.post('/:path?', loginViaCookie, (req, res) => {
     }
 
     console.log(dir + " DELETED");
-    res.redirect("/home" + dirRedirect.replace('-undefined', ''));
+    res.redirect("/home/" + dirRedirect.replace('-undefined', ''));
 
 });
 
