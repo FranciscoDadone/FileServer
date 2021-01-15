@@ -112,7 +112,7 @@ router.post('/register', (req, res) => {
                     //Registering new user after hashing the password.
                     DatabaseHandler.registerNewUser(username, email, hash);
                     
-                    let dir = './storage/' + username;
+                    let dir = './public/storage/' + username;
                     fs.mkdir(dir, function(err){
                         console.log("Error creating user folder in storage");
                     });

@@ -10,11 +10,11 @@ router.post('/:path?', loginViaCookie, (req, res) => {
     let dir;
 
     if(req.body.newFolder != undefined) {
-        dir = path.join(__dirname + "/../storage/" + req.username + "/" + req.body.newFolder);
+        dir = path.join(__dirname + "/../public/storage/" + req.username + "/" + req.body.newFolder);
         if(req.params.path != '-undefined' && req.params.path != undefined) {
-            dir = path.join(__dirname + "/../storage/" + req.username + "/" + req.params.path.replace(/-/g, '/').replace('/undefined', '') + "/" + req.body.newFolder);
+            dir = path.join(__dirname + "/../public/storage/" + req.username + "/" + req.params.path.replace(/-/g, '/').replace('/undefined', '') + "/" + req.body.newFolder);
         } else if(req.query.dirname != undefined) {
-            dir = path.join(__dirname + "/../storage/" + req.username + "/" + req.query.dirname + "/" + req.body.newFolder);
+            dir = path.join(__dirname + "/../public/storage/" + req.username + "/" + req.query.dirname + "/" + req.body.newFolder);
         }
     }
 

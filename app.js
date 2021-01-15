@@ -13,7 +13,7 @@ const indexRouter = require('./routes/index'),
     deleteRouter = require('./routes/delete'),
     createRouter = require('./routes/create'),
     downloadRouter = require('./routes/download'),
-    imageRouter = require('./routes/image');
+    mediaRouter = require('./routes/media');
 
 
 const app = express();
@@ -54,7 +54,7 @@ app.use('/home', apiRouter);
 app.use('/delete', deleteRouter);
 app.use('/create', createRouter);
 app.use('/download', downloadRouter);
-app.use('/image', imageRouter);
+app.use('/media', mediaRouter);
 
 
 // catch 404 and forward to error handler

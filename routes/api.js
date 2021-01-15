@@ -22,14 +22,14 @@ router.get('/:path?', loginViaCookie, (req,res) => {
         }, async (err, value) => {
             if(err) console.log(err);
             let content = { files: [], directories: [] };
-            let dir = path.join(__dirname + "/../storage/" + req.username);   
+            let dir = path.join(__dirname + "/../public/storage/" + req.username);   
 
             if(req.params.path && req.query.dirname) { 
-                dir = path.join(__dirname + "/../storage/" + req.username + "/" + req.params.path.replace(/-/g, '/') + "/" + req.query.dirname);
+                dir = path.join(__dirname + "/../public/storage/" + req.username + "/" + req.params.path.replace(/-/g, '/') + "/" + req.query.dirname);
             } else if(req.params.path) {
-                dir = path.join(__dirname + "/../storage/" + req.username + "/" + req.params.path.replace(/-/g, '/'));
+                dir = path.join(__dirname + "/../public/storage/" + req.username + "/" + req.params.path.replace(/-/g, '/'));
             } else if(req.query.dirname) {
-                dir = path.join(__dirname + "/../storage/" + req.username + "/" + req.query.dirname);
+                dir = path.join(__dirname + "/../public/storage/" + req.username + "/" + req.query.dirname);
             }
             
             fs.readdir(dir, async (err, files) => {
@@ -92,17 +92,17 @@ router.post('/:path?', loginViaCookie, (req, res) => {
             const file = req.files.file;
             if(file.length == undefined) {
                 if(req.params.path == undefined && req.query.dirname) {
-                    var route = "./storage/" + req.username + "/" + req.query.dirname + "/" + file.name;
-                    var dir = "./storage/" + req.username + "/" + req.query.dirname;
+                    var route = "./public/storage/" + req.username + "/" + req.query.dirname + "/" + file.name;
+                    var dir = "./public/storage/" + req.username + "/" + req.query.dirname;
                 } else if(req.params.path != undefined && req.query.dirname == undefined) {
-                    var route = "./storage/" + req.username + "/" + req.params.path.replace(/-/g, '/') + "/" + file.name;
-                    var dir = "./storage/" + req.username + "/" + req.params.path.replace(/-/g, '/');
+                    var route = "./public/storage/" + req.username + "/" + req.params.path.replace(/-/g, '/') + "/" + file.name;
+                    var dir = "./public/storage/" + req.username + "/" + req.params.path.replace(/-/g, '/');
                 } else if(req.params.path && req.query.dirname){
-                    var route = "./storage/" + req.username + "/" + req.params.path.replace(/-/g, '/') + "/" + req.query.dirname + "/" + file.name;
-                    var dir = "./storage/" + req.username + "/" + req.params.path.replace(/-/g, '/') + "/" + req.query.dirname;
+                    var route = "./public/storage/" + req.username + "/" + req.params.path.replace(/-/g, '/') + "/" + req.query.dirname + "/" + file.name;
+                    var dir = "./public/storage/" + req.username + "/" + req.params.path.replace(/-/g, '/') + "/" + req.query.dirname;
                 } else {
-                    var route = "./storage/" + req.username + "/" + file.name;
-                    var dir = "./storage/" + req.username;
+                    var route = "./public/storage/" + req.username + "/" + file.name;
+                    var dir = "./public/storage/" + req.username;
                 }
                 console.log('Receiving file: ' + route);
     
@@ -123,17 +123,17 @@ router.post('/:path?', loginViaCookie, (req, res) => {
                 for(let i = 0 ; i < file.length; i++){
                     
                     if(req.params.path == undefined && req.query.dirname) {
-                        var route = "./storage/" + req.username + "/" + req.query.dirname + "/" + file[i].name;
-                        var dir = "./storage/" + req.username + "/" + req.query.dirname;
+                        var route = "./public/storage/" + req.username + "/" + req.query.dirname + "/" + file[i].name;
+                        var dir = "./public/storage/" + req.username + "/" + req.query.dirname;
                     } else if(req.params.path != undefined && req.query.dirname == undefined) {
-                        var route = "./storage/" + req.username + "/" + req.params.path.replace(/-/g, '/') + "/" + file[i].name;
-                        var dir = "./storage/" + req.username + "/" + req.params.path.replace(/-/g, '/');
+                        var route = "./public/storage/" + req.username + "/" + req.params.path.replace(/-/g, '/') + "/" + file[i].name;
+                        var dir = "./public/storage/" + req.username + "/" + req.params.path.replace(/-/g, '/');
                     } else if(req.params.path && req.query.dirname){
-                        var route = "./storage/" + req.username + "/" + req.params.path.replace(/-/g, '/') + "/" + req.query.dirname + "/" + file[i].name;
-                        var dir = "./storage/" + req.username + "/" + req.params.path.replace(/-/g, '/') + "/" + req.query.dirname;
+                        var route = "./public/storage/" + req.username + "/" + req.params.path.replace(/-/g, '/') + "/" + req.query.dirname + "/" + file[i].name;
+                        var dir = "./public/storage/" + req.username + "/" + req.params.path.replace(/-/g, '/') + "/" + req.query.dirname;
                     } else {
-                        var route = "./storage/" + req.username + "/" + file[i].name;
-                        var dir = "./storage/" + req.username;
+                        var route = "./public/storage/" + req.username + "/" + file[i].name;
+                        var dir = "./public/storage/" + req.username;
                     }
                     console.log('Receiving file: ' + route);
                     

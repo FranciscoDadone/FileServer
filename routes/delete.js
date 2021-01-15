@@ -11,16 +11,16 @@ router.post('/:path?', loginViaCookie, (req, res) => {
     
 
     if(req.query.filename != undefined) {
-        dir = path.join(__dirname + "/../storage/" + req.username + "/" + req.query.filename);
+        dir = path.join(__dirname + "/../public/storage/" + req.username + "/" + req.query.filename);
     } else if(req.query.dirname != undefined) {
-        dir = path.join(__dirname + "/../storage/" + req.username + "/" + req.query.dirname);
+        dir = path.join(__dirname + "/../public/storage/" + req.username + "/" + req.query.dirname);
     }
 
     if(req.params.path != '-undefined' && req.params.path != undefined) {
         if(req.query.filename != undefined) {
-            dir = path.join(__dirname + "/../storage/" + req.username + "/" + req.params.path.replace(/-/g, '/').replace('/undefined', '') + "/" + req.query.filename);
+            dir = path.join(__dirname + "/../public/storage/" + req.username + "/" + req.params.path.replace(/-/g, '/').replace('/undefined', '') + "/" + req.query.filename);
         } else if(req.query.dirname != undefined) {
-            dir = path.join(__dirname + "/../storage/" + req.username + "/" + req.params.path.replace(/-/g, '/').replace('/undefined', '') + "/" + req.query.dirname);
+            dir = path.join(__dirname + "/../public/storage/" + req.username + "/" + req.params.path.replace(/-/g, '/').replace('/undefined', '') + "/" + req.query.dirname);
         }
     }
 
