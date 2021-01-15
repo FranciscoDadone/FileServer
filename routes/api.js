@@ -6,11 +6,15 @@ var shell = require('shelljs');
 const loginViaCookie = require('../middlewares/loginViaCookie');
 var path = require('path');
 const UserModel = require('../controller/models/User');
+var multer = require('multer');
 
 
 // Middlewares
 router.use(fileUpload());
 router.use(express.static('public'));
+router.use(multer( {
+    dest: 'storage'
+}).any());
 
 router.get('/:path?', loginViaCookie, (req,res) => {
     if(!req.isAuthenticated) {
@@ -89,6 +93,7 @@ router.post('/:path?', loginViaCookie, (req, res) => {
         }
     } else {
         if(req.files){
+            console.log(req.files)
             const file = req.files.filename;
 
             if(file.length == undefined) {

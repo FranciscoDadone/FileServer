@@ -20,8 +20,9 @@ module.exports = function loginViaCookie(req, res, next) {
             UserModel.findOne({
                 ID: userID
             }, (err, value) => {
-    
+                if(err) console.log(err);
                 bcrypt.compare(value.authCookie, cookieToUnhash, function(err, result) {
+                    if(err) console.log(err);
                     if(result) {
                         req.isAuthenticated = true;
                         req.email = value.email;

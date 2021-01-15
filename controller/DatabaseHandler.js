@@ -49,7 +49,7 @@ function isAlreadyRegistered(email, username, callback) {
             callback(true);
         } else {
             UserModel.model('User').find({
-                username: username
+                email: email
             }, (err, value) => {
                 if(err) console.log(err);
                 if(value[0] != null) {
