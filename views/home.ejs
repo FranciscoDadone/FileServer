@@ -29,15 +29,15 @@
 <div class="container-fluid margin-top">
     <div class="row">
         <div class="col-md-3">
-            <form action="<% pathWithoutHome %>" class="nav-item" method="POST" enctype="multipart/form-data">
+            <form class="nav-item" action="<% pathWithoutHome %>" method="POST" enctype="multipart/form-data">
                 <label id="input-file">
-                    <input type="file" name="filename" multiple>
+                    <input id="file-input" type="file" name="file" multiple>
                 </label>
-                <br><br>
-                <button type="submit" class="btn btn-secondary nav-link active">
-                    Upload files
-                </button>
             </form>
+            <div class="progress" style="display: none;" id="div-progress">
+                <div id="upload-progress" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+              </div>
+            <p id="message"></p>
         </div>
         <%if(!status == "" && status != "success") { %>
             <div class="col-md-2">
@@ -128,7 +128,6 @@
                     </form>
                 </div>
             </div>
-            
             <% } %>
     </div>
 </div>

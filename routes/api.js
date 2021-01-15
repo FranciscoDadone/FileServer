@@ -6,15 +6,12 @@ var shell = require('shelljs');
 const loginViaCookie = require('../middlewares/loginViaCookie');
 var path = require('path');
 const UserModel = require('../controller/models/User');
-var multer = require('multer');
 
 
 // Middlewares
 router.use(fileUpload());
 router.use(express.static('public'));
-router.use(multer( {
-    dest: 'storage'
-}).any());
+
 
 router.get('/:path?', loginViaCookie, (req,res) => {
     if(!req.isAuthenticated) {
@@ -35,6 +32,7 @@ router.get('/:path?', loginViaCookie, (req,res) => {
             } else if(req.query.dirname) {
                 dir = path.join(__dirname + "/../storage/" + req.username + "/" + req.query.dirname);
             }
+            
             fs.readdir(dir, async (err, files) => {
                 try {
                     files.forEach(file => {
@@ -44,7 +42,6 @@ router.get('/:path?', loginViaCookie, (req,res) => {
                             content.files.push(file);
                         }
                     });
-                    console.log(dir);
                     res.render('home', {
                         title: 'Cloud',
                         user: req.user,
@@ -93,9 +90,7 @@ router.post('/:path?', loginViaCookie, (req, res) => {
         }
     } else {
         if(req.files){
-            console.log(req.files)
-            const file = req.files.filename;
-
+            const file = req.files.file;
             if(file.length == undefined) {
                 if(req.params.path == undefined && req.query.dirname) {
                     var route = "./storage/" + req.username + "/" + req.query.dirname + "/" + file.name;
@@ -129,19 +124,15 @@ router.post('/:path?', loginViaCookie, (req, res) => {
                 for(let i = 0 ; i < file.length; i++){
                     
                     if(req.params.path == undefined && req.query.dirname) {
-                        console.log("4");
                         var route = "./storage/" + req.username + "/" + req.query.dirname + "/" + file[i].name;
                         var dir = "./storage/" + req.username + "/" + req.query.dirname;
                     } else if(req.params.path != undefined && req.query.dirname == undefined) {
-                        console.log("1");
                         var route = "./storage/" + req.username + "/" + req.params.path.replace(/-/g, '/') + "/" + file[i].name;
                         var dir = "./storage/" + req.username + "/" + req.params.path.replace(/-/g, '/');
                     } else if(req.params.path && req.query.dirname){
-                        console.log("2");
                         var route = "./storage/" + req.username + "/" + req.params.path.replace(/-/g, '/') + "/" + req.query.dirname + "/" + file[i].name;
                         var dir = "./storage/" + req.username + "/" + req.params.path.replace(/-/g, '/') + "/" + req.query.dirname;
                     } else {
-                        console.log("3");
                         var route = "./storage/" + req.username + "/" + file[i].name;
                         var dir = "./storage/" + req.username;
                     }
@@ -166,11 +157,10 @@ router.post('/:path?', loginViaCookie, (req, res) => {
                 r = '/home/' + req.query.dirname + '?status=success';
             }
             if((req.params.path != undefined) && (req.query.dirname != undefined)) {
-                console.log("acá");
                 r = '/home/' + req.params.path + "-" + req.query.dirname + '?status=success';
             }
-            
-            res.redirect(r);
+            res.status(200);
+            res.send("");
         }
     }
 });
