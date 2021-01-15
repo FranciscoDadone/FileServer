@@ -76,6 +76,44 @@
         </form>
     </div>
     <br><br>
+    <!-- GO BACK -->
+    <div class="row text-center">
+        <div class="col-md-8">
+            <% if(req.query.dirname) { %>
+            <form action="<%= path %>" method="GET" id="form">
+                <% } else if(!req.query.dirname && path && path != "/home/" && path != "/home") { %>
+                    <%
+                    var backPath = '', cpy = false;
+
+                    for(let i = path.length; i > 0; i--) {
+                        if(cpy) {
+                            backPath += path[i];
+                        }
+
+                        if(path[i] == '-') {
+                            cpy = true;
+                        }
+                    }
+                    backPath = "/" + backPath.split("").reverse().join("")
+                    %>
+
+            <form action="<%= backPath %>" method="GET" id="form">
+                <% } %>
+                <% if( req.query.dirname || (path && (path != "/home/" && path != "/home" && path != "home/" && path != "home" && path != "/home/?" && path != "home/?"))) { %>
+                <button type="submit" class="btn btn-outline-primary" id="folder">
+                    <i class="fas fa-level-up-alt" style="transform: scaleX(-1);"></i>
+                    <label></label>
+                    <label>
+                        Up a dir...
+                    </label>
+                </button>
+            </form>
+            <% } %>
+        </div>
+    </div>
+</div>
+
+
     <!-- FOLDERS -->
     <div class="row text-center">
         <% for( const dirname of content.directories) { %>
