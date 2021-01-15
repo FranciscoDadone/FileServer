@@ -12,7 +12,6 @@ const UserModel = require('../controller/models/User');
 router.use(fileUpload());
 router.use(express.static('public'));
 
-
 router.get('/:path?', loginViaCookie, (req,res) => {
     if(!req.isAuthenticated) {
         res.redirect('/');

@@ -23,10 +23,14 @@ function init() {
         };
 
         xhr.upload.onprogress = function (e) {
-            let progress = Math.round((e.loaded * 100) / e.total);
+            let progress = Math.round((e.loaded * 100) / e.total),
+                totalInMB = (e.total / 1000) / 1000,
+                uploadedInMB = (e.loaded / 1000) / 1000;
+
             uploadProgress.setAttribute("aria-valuenow", progress);
             uploadProgress.setAttribute("style", "width: " + progress + "%;");
             uploadProgress.innerHTML = progress + "%";
+            message.innerHTML = uploadedInMB.toFixed(1) + "mb / " + totalInMB.toFixed(1) + "mb";
         };
 
         xhr.upload.onloadend = function (e) {
@@ -35,8 +39,7 @@ function init() {
         };
 
         xhr.onload = function () {
-            window.open(window.location.href,"_self");
-            console.log("dsddsds");
+            window.open(window.location.href, "_self");
         };
 
         xhr.open('POST', '', true);

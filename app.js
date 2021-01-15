@@ -1,20 +1,22 @@
-var createError = require('http-errors');
-var express = require('express');
+const createError = require('http-errors');
+const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 const mongoose = require('mongoose');
 const url = require('./config/keys').mongoURI;
 
 
-var indexRouter = require('./routes/index');
-var apiRouter = require('./routes/api');
-var deleteRouter = require('./routes/delete');
-var createRouter = require('./routes/create');
-var downloadRouter = require("./routes/download")
+const indexRouter = require('./routes/index'),
+    apiRouter = require('./routes/api'),
+    deleteRouter = require('./routes/delete'),
+    createRouter = require('./routes/create'),
+    downloadRouter = require('./routes/download'),
+    imageRouter = require('./routes/image');
 
-var app = express();
+
+const app = express();
 
 // Connect to database (MongoDB)
 mongoose.connect(url, {
@@ -22,12 +24,12 @@ mongoose.connect(url, {
   useNewUrlParser: true
 });
 //Get the default connection
-var db = mongoose.connection;
+const db = mongoose.connection;
 
 //Bind connection to error event (to get notification of connection errors)
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', () => {
-console.log('MongoDB Connected! at: ', url);
+console.log('MongoDB Connected! @: ', url);
 });
 
 //Cookie parser
@@ -44,6 +46,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
 app.use(express.static('public'));
 
 app.use('/', indexRouter);
@@ -51,6 +54,7 @@ app.use('/home', apiRouter);
 app.use('/delete', deleteRouter);
 app.use('/create', createRouter);
 app.use('/download', downloadRouter);
+app.use('/image', imageRouter);
 
 
 // catch 404 and forward to error handler
