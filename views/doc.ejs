@@ -1,1 +1,24 @@
-<textarea class="form-control" cols="30" rows="20" placeholder="text will appear here"></textarea> 
+
+<% if(status == 'OK') { %>
+<div class="alert alert-success" role="alert">
+    <%= file %> saved successfully!
+</div>
+<% } else if(status == 'err') { %>
+<div class="alert alert-danger" role="alert">
+    Error saving the file. Contact the administrator.
+</div>
+<% } %>
+
+<form action="/media/saveDoc" method="post">
+    <textarea class="form-control" cols="30" rows="20" name="textarea" placeholder="Empty document."><%= content %></textarea>
+    <br>
+    <input type="hidden" name="file" value="<%= file %>">
+    <input type="hidden" name="webUrl" value="<%= webUrl %>">
+    <input type="hidden" name="url" value="<%= url %>">
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+<br>
+<form action="<%= webUrl %>" method="get">
+    <button type="submit" class="btn btn-danger">Close</button>
+</form>

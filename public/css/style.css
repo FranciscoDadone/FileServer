@@ -27,6 +27,7 @@ a {
   border-radius: 10px;
   width: 100%;
   margin-bottom: 5px;
+  text-align: left;
 }
 
 #trash {
@@ -54,6 +55,7 @@ a {
   border-radius: 10px;
   width: 100%;
   margin-bottom: 5px;
+  text-align: left;
 }
 
 .btn-create {
@@ -64,4 +66,14 @@ a {
 
 .img-server {
   margin: 0;
+}
+
+#icon {
+  padding: 10px;
+}
+
+#label-size {
+  text-align: right;
+  color: gray;
+  font: 70% sans-serif;
 }
