@@ -39,7 +39,15 @@ function init() {
         };
 
         xhr.onload = function () {
-            window.open(window.location.href, "_self");
+            if(window.location.href.includes('status=success')) {
+                window.open(window.location.href, "_self");
+            } else if((window.location.href[window.location.href.length - 1] != '/' && window.location.href.includes('status=success')) || window.location.href.includes('?dirname')) {
+                window.open(window.location.href + '&status=success', "_self");
+            } else if(window.location.href[window.location.href.length - 1] == '?') {
+                window.open(window.location.href + 'status=success', "_self");
+            } else {
+                window.open(window.location.href + '?status=success', "_self");
+            }
         };
 
         xhr.open('POST', '', true);

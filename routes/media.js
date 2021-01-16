@@ -6,12 +6,12 @@ router.use(express.static('public'));
 
 router.get('/image', loginViaCookie, (req, res) => {
 
-    let path = req.query.path.replace(/-/g, '/'), 
+    let path = req.query.path.replace('/', '').replace(/-/g, '/'), 
         path1 = '', 
         pstart = 0, 
         pend = 0;
-    
-    if(path[0] == '/' || path[path.length - 1] == '/') {
+
+        if(path[0] == '/' || path[path.length - 1] == '/') {
         if(path[0] == '/') { pstart = 1 }
         if(path[path.length - 1] == '/') { pend = 1 }
 
@@ -22,10 +22,17 @@ router.get('/image', loginViaCookie, (req, res) => {
 
     let url = 'storage/' + req.username;
     if(path1 != "") {
-        url += "/" + path1 + "/" + req.query.img;
+        url += "/" + path1 + "/";
     } else {
-        url += "/" + req.query.img;
+        url += "/";
     }
+    if(req.query.dirname) {
+        url += req.query.dirname + "/";
+    }
+
+    url += req.query.img;
+
+    console.log(url)
 
     res.render('images', {
         url: url,

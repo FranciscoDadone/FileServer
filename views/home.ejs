@@ -143,14 +143,14 @@
                 <% if(filename.includes(".bmp") || filename.includes(".jpg") || filename.includes(".jpeg") || filename.includes(".gif") || filename.includes(".png") || filename.includes(".eps")) {%>
                 <form action="/media/image" method="GET">
                     <input type="hidden" name="path" value="<%= pathWithoutHome %>">
+                    <input type="hidden" name="dirname" value="<%= req.query.dirname %>">
                     <input type="hidden" name="img" value="<%= filename %>">
                     <button class="btn btn-outline-info" id="file" type="submit">
                         <i class="far fa-image"></i>
                         <label><%-filename%></label>
                     </button>
                 </form>
-                <% } 
-                if(filename.includes(".txt") || filename.includes(".text") || filename.includes(".js") || filename.includes(".html") || filename.includes(".py") || filename.includes(".css") || filename.includes(".c") || filename.includes(".cpp") || filename.includes(".ino") || filename.includes(".java") || filename.includes(".txt")) {%>
+                <% } else if(filename.includes(".txt") || filename.includes(".text") || filename.includes(".js") || filename.includes(".html") || filename.includes(".py") || filename.includes(".css") || filename.includes(".c") || filename.includes(".cpp") || filename.includes(".ino") || filename.includes(".java") || filename.includes(".txt")) {%>
                     <form action="/media/doc" method="GET">
                         <input type="hidden" name="path" value="<%= pathWithoutHome %>">
                         <input type="hidden" name="file" value="<%= filename %>">
@@ -159,6 +159,11 @@
                             <label><%-filename%></label>
                         </button>
                     </form>
+                <% } else { %>
+                    <div class="btn btn-outline-info" id="file" type="submit">
+                        <i class="fas fa-file"></i>
+                        <label><%-filename%></label>
+                    </div>
                 <% } %>
             </div>
             <div class="col-md-4">

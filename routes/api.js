@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var fileUpload = require('express-fileupload');
-var fs = require('fs');
+//var fileUpload = require('express-fileupload');
+var fs = require('fs-extra');
 var shell = require('shelljs');
 const loginViaCookie = require('../middlewares/loginViaCookie');
 var path = require('path');
@@ -9,8 +9,15 @@ const UserModel = require('../controller/models/User');
 
 
 // Middlewares
-router.use(fileUpload());
+//router.use(fileUpload());
 router.use(express.static('public'));
+
+const busboy = require('connect-busboy');   // Middleware to handle the file upload https://github.com/mscdex/connect-busboy
+
+router.use(busboy({
+    highWaterMark: 2 * 1024 * 1024, // Set 2MiB buffer
+})); // Insert the busboy middle-ware
+
 
 router.get('/:path?', loginViaCookie, (req,res) => {
     if(!req.isAuthenticated) {
@@ -67,9 +74,10 @@ router.get('/:path?', loginViaCookie, (req,res) => {
 });
 
 // POST
+
 router.post('/:path?', loginViaCookie, (req, res) => {
-    if(!req.files || Object.keys(req.files).length === 0 || !req.isAuthenticated) {
-        if(!req.files || Object.keys(req.files).length === 0){
+    if(!req.busboy || Object.keys(req.busboy).length === 0 || !req.isAuthenticated) {
+        if(!req.busboy || Object.keys(req.busboy).length === 0){
             var r = '/home/?status=err';
             if(req.params.path != undefined) {
                 r = '/home/' + req.params.path + '?status=err';
@@ -88,79 +96,42 @@ router.post('/:path?', loginViaCookie, (req, res) => {
             });
         }
     } else {
-        if(req.files){
-            const file = req.files.file;
-            if(file.length == undefined) {
-                if(req.params.path == undefined && req.query.dirname) {
-                    var route = "./public/storage/" + req.username + "/" + req.query.dirname + "/" + file.name;
-                    var dir = "./public/storage/" + req.username + "/" + req.query.dirname;
-                } else if(req.params.path != undefined && req.query.dirname == undefined) {
-                    var route = "./public/storage/" + req.username + "/" + req.params.path.replace(/-/g, '/') + "/" + file.name;
-                    var dir = "./public/storage/" + req.username + "/" + req.params.path.replace(/-/g, '/');
-                } else if(req.params.path && req.query.dirname){
-                    var route = "./public/storage/" + req.username + "/" + req.params.path.replace(/-/g, '/') + "/" + req.query.dirname + "/" + file.name;
-                    var dir = "./public/storage/" + req.username + "/" + req.params.path.replace(/-/g, '/') + "/" + req.query.dirname;
-                } else {
-                    var route = "./public/storage/" + req.username + "/" + file.name;
-                    var dir = "./public/storage/" + req.username;
-                }
-                console.log('Receiving file: ' + route);
-    
-                if(!fs.existsSync(dir)) {
-                    console.log("Creating directory: " + dir);
-                    shell.mkdir('-p', dir);
-                }
-    
-                file.mv(route, function (err){
-                    if(err){
-                        fs.mkdir(dir, function(er) {
-                            console.log(er);
-                        });
-                    }
-                })
-            
-            } else {
-                for(let i = 0 ; i < file.length; i++){
-                    
+        if(req.busboy){
+                req.pipe(req.busboy); // Pipe it trough busboy
+                
+                req.busboy.on('file', (fieldname, file, filename) => {
+                    console.log(`Upload of '${filename}' started`);
+
+                    var route = "./public/storage/" + req.username + "/" + filename, 
+                        dir = "./public/storage/" + req.username;
+
                     if(req.params.path == undefined && req.query.dirname) {
-                        var route = "./public/storage/" + req.username + "/" + req.query.dirname + "/" + file[i].name;
-                        var dir = "./public/storage/" + req.username + "/" + req.query.dirname;
+                        route = "./public/storage/" + req.username + "/" + req.query.dirname + "/" + filename;
+                        dir = "./public/storage/" + req.username + "/" + req.query.dirname;
                     } else if(req.params.path != undefined && req.query.dirname == undefined) {
-                        var route = "./public/storage/" + req.username + "/" + req.params.path.replace(/-/g, '/') + "/" + file[i].name;
-                        var dir = "./public/storage/" + req.username + "/" + req.params.path.replace(/-/g, '/');
+                        route = "./public/storage/" + req.username + "/" + req.params.path.replace(/-/g, '/') + "/" + filename;
+                        dir = "./public/storage/" + req.username + "/" + req.params.path.replace(/-/g, '/');
                     } else if(req.params.path && req.query.dirname){
-                        var route = "./public/storage/" + req.username + "/" + req.params.path.replace(/-/g, '/') + "/" + req.query.dirname + "/" + file[i].name;
-                        var dir = "./public/storage/" + req.username + "/" + req.params.path.replace(/-/g, '/') + "/" + req.query.dirname;
-                    } else {
-                        var route = "./public/storage/" + req.username + "/" + file[i].name;
-                        var dir = "./public/storage/" + req.username;
+                        route = "./public/storage/" + req.username + "/" + req.params.path.replace(/-/g, '/') + "/" + req.query.dirname + "/" + filename;
+                        dir = "./public/storage/" + req.username + "/" + req.params.path.replace(/-/g, '/') + "/" + req.query.dirname;
                     }
-                    console.log('Receiving file: ' + route);
-                    
+
                     if(!fs.existsSync(dir)) {
                         console.log("Creating directory: " + dir);
                         shell.mkdir('-p', dir);
                     }
-    
-                    file[i].mv(route, function (err){
-                        if(err){
-                            res.send(err);
-                        }
-                    })
-                }
+
+                    const fstream = fs.createWriteStream(route);
+                    file.pipe(fstream);
+
+                    // On finish of the upload
+                    fstream.on('close', () => {
+                        console.log(`Upload of '${filename}' finished`);
+
+                        res.redirect('back'); //fallback
+                    });
+                });
             }
-            var r = '/home/?status=success';
-            if(req.params.path != undefined) {
-                r = '/home/' + req.params.path + '?status=success';
-            } else if(req.query.dirname != undefined) {
-                r = '/home/' + req.query.dirname + '?status=success';
-            }
-            if((req.params.path != undefined) && (req.query.dirname != undefined)) {
-                r = '/home/' + req.params.path + "-" + req.query.dirname + '?status=success';
-            }
-            res.status(200);
-            res.send("");
-        }
     }
 });
 
