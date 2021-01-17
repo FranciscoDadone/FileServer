@@ -20,20 +20,31 @@ module.exports = function loginViaCookie(req, res, next) {
             UserModel.findOne({
                 ID: userID
             }, (err, value) => {
-                if(err) console.log(err);
-                bcrypt.compare(value.authCookie, cookieToUnhash, function(err, result) {
-                    if(err) console.log(err);
-                    if(result) {
-                        req.isAuthenticated = true;
-                        req.email = value.email;
-                        req.username = value.username;
-                        req.user = value
-                        next();
-                    } else {
-                        req.isAuthenticated = false;
-                        next();
-                    }
-                });
+                if(err) {
+                    console.log(err);
+                    res.redirect('/logout');
+                } else if(value != null || value != undefined) {
+                    bcrypt.compare(value.authCookie, cookieToUnhash, function(err, result) {
+                        if(err) {
+                            console.log(err);
+                            res.redirect('/logout');
+                        }
+                        if(result) {
+                            req.isAuthenticated = true;
+                            req.email = value.email;
+                            req.username = value.username;
+                            req.user = value
+                            next();
+                        } else {
+                            req.isAuthenticated = false;
+                            next();
+                        }
+                    });
+                } else {
+                    req.isAuthenticated = false;
+                    res.redirect("/logout");
+                }
+                
     
             });
     
