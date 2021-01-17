@@ -5,7 +5,6 @@ const shell = require('shelljs');
 const loginViaCookie = require('../middlewares/loginViaCookie');
 const path = require('path');
 const UserModel = require('../controller/models/User');
-const du = require('du');
 
 
 // Middlewares
@@ -40,21 +39,16 @@ router.get('/:path?', loginViaCookie, (req,res) => {
             } else if(req.query.dirname) {
                 dir = path.join(__dirname + "/../public/storage/" + req.username + "/" + req.query.dirname);
             }
-            
-
+        
             const convertBytes = function(bytes) {
                 const sizes = ["Bytes", "KB", "MB", "GB", "TB"]
-              
                 if (bytes == 0) {
-                  return "n/a"
+                  return "0 Bytes"
                 }
-              
                 const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)))
-              
                 if (i == 0) {
                   return bytes + " " + sizes[i]
                 }
-              
                 return (bytes / Math.pow(1024, i)).toFixed(1) + " " + sizes[i]
             }
 

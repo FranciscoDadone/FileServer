@@ -5,6 +5,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
+
 const url = require('./config/keys').mongoURI;
 
 
@@ -17,6 +18,7 @@ const indexRouter = require('./routes/index'),
 
 
 const app = express();
+
 
 // Connect to database (MongoDB)
 mongoose.connect(url, {
