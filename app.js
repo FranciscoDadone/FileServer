@@ -5,8 +5,6 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
-const compression = require('compression');
-var helmet = require('helmet');
 const url = require('./config/keys').mongoURI;
 
 
@@ -19,10 +17,6 @@ const indexRouter = require('./routes/index'),
 
 
 const app = express();
-app.use(compression()); //Compress all routes
-app.use(helmet());
-
-
 
 // Connect to database (MongoDB)
 mongoose.connect(url, {
