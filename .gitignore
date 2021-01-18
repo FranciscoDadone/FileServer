@@ -61,5 +61,4 @@ typings/
 .next
 
 #BBDD
-/config/keys.jsconfig/keys.js $ git rm --cached config/keys.js rm config/keys.js $ git commit -m Start ignoring keys.js
-config/keys.js
+.env
