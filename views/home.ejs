@@ -43,6 +43,8 @@
                 <div class="alert alert-danger text-center" id="alert-boot" role="alert">
                     <% if(status == "err") { %>
                         Please select files to upload.
+                        <% } else if(status == "decompressingFailed") { %>
+                        Decompression failed. To decompress download the file.
                         <% } %>
                     <button type="button" class="btn btn-outline-danger" id="btn-alert" data-bs-dismiss="alert" aria-label="Close">Close</button>
                 </div>
@@ -154,7 +156,7 @@
         <% for(let i = 0; i < content.files.length; i++) { 
             let filename = content.files[i] %>
             <div class="col-md-8">
-                <% if(filename.includes(".bmp") || filename.includes(".jpg") || filename.includes(".jpeg") || filename.includes(".gif") || filename.includes(".png") || filename.includes(".eps")) {%>
+                <% if(filename.toLowerCase().includes(".bmp") || filename.toLowerCase().includes(".jpg") || filename.toLowerCase().includes(".jpeg") || filename.toLowerCase().includes(".gif") || filename.toLowerCase().includes(".png") || filename.toLowerCase().includes(".eps") || filename.toLowerCase().includes(".jpg")) {%>
                 <form action="/media/image" method="GET">
                     <input type="hidden" name="path" value="<%= pathWithoutHome %>">
                     <input type="hidden" name="dirname" value="<%= req.query.dirname %>">

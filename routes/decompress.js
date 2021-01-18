@@ -30,16 +30,17 @@ router.post('/:path?', loginViaCookie, (req, res, next) => {
 
     var unzipper = new DecompressZip(dir)
     unzipper.on('error', function (err) {
-    console.log('Caught an error');
+        console.log(err);
+        res.redirect(url + '/?status=decompressingFailed')
     });
 
     unzipper.on('extract', function (log) {
-    console.log('Finished extracting');
+        console.log('Finished extracting');
+        res.redirect(url + '/?status=decompressing');
     });
 
     unzipper.on('progress', function (fileIndex, fileCount) {
         console.log('Extracted file ' + (fileIndex + 1) + ' of ' + fileCount);
-        res.redirect(url + '/?status=decompressing');
     });
 
     unzipper.extract({
