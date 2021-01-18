@@ -38,7 +38,7 @@
               </div>
             <p id="message"></p>
         </div>
-        <%if(!status == "" && status != "success") { %>
+        <%if(!status == "" && status != "success" && status != "decompressing") { %>
             <div class="col-md-2">
                 <div class="alert alert-danger text-center" id="alert-boot" role="alert">
                     <% if(status == "err") { %>
@@ -47,10 +47,14 @@
                     <button type="button" class="btn btn-outline-danger" id="btn-alert" data-bs-dismiss="alert" aria-label="Close">Close</button>
                 </div>
             </div>
-        <%} else if(status == "success") {%>
+        <%} else if(status == "success" || status == "decompressing") {%>
             <div class="col-md-2">
                 <div class="alert alert-success alert-dismissible fade show" id="alert-boot" role="alert">
-                    Files uploaded!
+                    <% if(status == "success") {%>
+                        Files uploaded!
+                    <% } else if(status == "decompressing") { %>
+                        Decompressing file. Please wait.
+                    <% } %>
                     <button type="button" class="btn btn-outline-success" id="btn-alert" data-bs-dismiss="alert" aria-label="Close">Close</button>
                 </div>
             </div>
@@ -176,6 +180,24 @@
                             <div class="row">
                                 <div class="col-md-10">
                                     <i id="icon" class="far fa-file-word"></i>
+                                    <label><%-filename%></label>
+                                </div>
+                                <div id="label-size" class="col-md-2">
+                                    <label>Size: <%= content.filesSizes[i] %></label>
+                                </div>
+                            </div>
+                        </button>
+                    </form>
+                <% } else if(filename.includes(".zip") || filename.includes(".rar")) { %>
+                    <form action="/decompress" method="POST">
+                        <input type="hidden" name="path" value="<%= pathWithoutHome %>">
+                        <input type="hidden" name="file" value="<%= filename %>">
+                        <input type="hidden" name="dirname" value="<%= req.query.dirname %>">
+                        <input type="hidden" name="content" value="<%= content %>">
+                        <button class="btn btn-outline-info" id="file">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <i id="icon" class="fas fa-file-archive"></i>
                                     <label><%-filename%></label>
                                 </div>
                                 <div id="label-size" class="col-md-2">

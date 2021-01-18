@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const loginViaCookie = require('../middlewares/loginViaCookie');
-const FileReader = require('filereader')
 const fs = require('fs');
 
 router.use(express.static('public'));

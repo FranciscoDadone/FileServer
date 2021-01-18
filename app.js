@@ -9,11 +9,12 @@ const url = require('./config/keys').mongoURI;
 
 
 const indexRouter = require('./routes/index'),
-    apiRouter = require('./routes/api'),
+    uploadRouter = require('./routes/upload'),
     deleteRouter = require('./routes/delete'),
     createRouter = require('./routes/create'),
     downloadRouter = require('./routes/download'),
-    mediaRouter = require('./routes/media');
+    mediaRouter = require('./routes/media'),
+    decompressRouter = require('./routes/decompress');
 
 
 const app = express();
@@ -42,7 +43,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(expressLayouts);
 app.set('view engine', 'ejs');
 
-app.use(logger('dev'));
+if(process.env.NODE_ENV == "production") { app.use(logger('prod')); } else { app.use(logger('dev')); }
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -50,11 +51,12 @@ app.use(cookieParser());
 app.use(express.static('public'));
 
 app.use('/', indexRouter);
-app.use('/home', apiRouter);
+app.use('/home', uploadRouter);
 app.use('/delete', deleteRouter);
 app.use('/create', createRouter);
 app.use('/download', downloadRouter);
 app.use('/media', mediaRouter);
+app.use('/decompress', decompressRouter);
 
 
 // catch 404 and forward to error handler

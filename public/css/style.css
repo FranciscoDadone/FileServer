@@ -40,7 +40,7 @@ a {
   text-align: right;
 }
 
-#form-download {
+#form-download.col {
   width: 100%;
   text-align: left;
 }
