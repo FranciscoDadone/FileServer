@@ -1,11 +1,10 @@
-    <script src="https://kit.fontawesome.com/4e85e69335.js" crossorigin="anonymous"></script>
 
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
   <a href="https://github.com/FranciscoDadone/FileServer">
-<i class="fas fa-server"></i>
-  </a>
+    ![](githubImages/logo.png)
+</a>
 
   <h3 align="center">File Server</h3>
 
@@ -46,9 +45,9 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-![](images/login.png)
-![](images/register.png)
-![](images/home.png)
+![](githubImages/login.png)
+![](githubImages/register.png)
+![](githubImages/home.png)
 
 I created this project for fun, and it's a nodeJS file server that you can access it via a webpage, it has a login and manages users accounts and the data that users could store in the cloud. This is basically a onedrive or google drive clone if you will.
 
@@ -70,12 +69,12 @@ I created this project for fun, and it's a nodeJS file server that you can acces
 * npm
   ```sh
   npm install npm@latest -g
-```
+  ```
 * Mongo database: You can create your free cluster to get started here <a href="https://account.mongodb.com/account/login">here</a>
 
 ### Installation
 
-1. Clone the repo
+1. Clone the repo.
    ```sh
    git clone https://github.com/FranciscoDadone/FileServer
    ```
@@ -83,7 +82,7 @@ I created this project for fun, and it's a nodeJS file server that you can acces
    ```sh
    npm install
    ```
-3. Enter your MONGO_URI2 in `config/keys.js` or if you'r using PM2 in `ecosystem.config.js`
+3. Enter your MONGO_URI2 in `config/keys.js` or if you'r using PM2 in `ecosystem.config.js`.
    ```JS
    const MONGO_URI2 = 'ENTER YOUR MongoDB URI';
    ```
@@ -96,13 +95,13 @@ I created this project for fun, and it's a nodeJS file server that you can acces
 * If you want to change the port (default: 3000) you can edit the ´ecosystem.config.js´ file and change the port to whatever you want or if you'r not using pm2, you can go to ´bin/www´ and change ´var port = normalizePort(process.env.PORT || '3000');´ and change it there.
 
 *To start the server
-  ´´´sh
+  ```sh
    npm run start
   ```
   or
-  ´´´
+  ```
   pm2 start ecosystem.config.js
-  ´´´
+  ```
 
 
 <!-- CONTRIBUTING -->
