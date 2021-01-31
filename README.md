@@ -3,7 +3,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/FranciscoDadone/FileServer">
-    ![](githubImages/logo.png)
+    <img src="githubImages/logo.png" />
 </a>
 
   <h3 align="center">File Server</h3>
@@ -49,7 +49,7 @@
 ![](githubImages/register.png)
 ![](githubImages/home.png)
 
-I created this project for fun, and it's a nodeJS file server that you can access it via a webpage, it has a login and manages users accounts and the data that users could store in the cloud. This is basically a onedrive or google drive clone if you will.
+I've created this project for fun, and it's a nodeJS file server that you can access it via a webpage, it has a login and manages users accounts and the data that users could store in the cloud. This is basically a onedrive or google drive clone if you will.
 
 ### Built With
 
