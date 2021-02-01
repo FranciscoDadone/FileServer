@@ -45,11 +45,32 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
+Login page
+
 ![](githubImages/login.png)
+
+Register page
+
 ![](githubImages/register.png)
+
+Home page
+
 ![](githubImages/home.png)
 
-I've created this project for fun, and it's a nodeJS file server that you can access it via a webpage, it has a login and manages users accounts and the data that users could store in the cloud. This is basically a onedrive or google drive clone if you will.
+Click a image to display its content
+
+![](githubInages/clickImg.png)
+
+Click a text document to view and edit it
+
+![](githubImages/txtDoc.png)
+
+
+<br />
+<br />
+<br />
+
+* I've created this project for fun, and it's a nodeJS file server that you can access it via a webpage, it has a login and manages users accounts and the data that users could store in the cloud. This is basically a onedrive or google drive clone if you will.
 
 ### Built With
 
