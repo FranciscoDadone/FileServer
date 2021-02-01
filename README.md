@@ -115,13 +115,13 @@ Click a text document to view and edit it
 
 * If you want to change the port (default: 3000) you can edit the ´ecosystem.config.js´ file and change the port to whatever you want or if you'r not using pm2, you can go to ´bin/www´ and change ´var port = normalizePort(process.env.PORT || '3000');´ and change it there.
 
-*To start the server
+To start the server use
   ```sh
    npm run start
   ```
-  or
+or this if you're using pm2
   ```
-  pm2 start ecosystem.config.js
+  pm2 start
   ```
 
 
