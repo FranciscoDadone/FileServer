@@ -91,7 +91,11 @@ Click a text document to view and edit it
   ```sh
   npm install npm@latest -g
   ```
-* Mongo database: You can create your free cluster to get started here <a href="https://account.mongodb.com/account/login">here</a>
+* Mongo database: You can create your free cluster to get started here <a href="https://account.mongodb.com/account/login">here</a> or install a local database.
+* pm2
+  ```sh
+  npm install pm2 -g
+  ```
 
 ### Installation
 
