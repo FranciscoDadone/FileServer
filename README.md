@@ -59,7 +59,7 @@ Home page
 
 Click a image to display its content
 
-![](githubInages/clickImg.png)
+![](githubImages/clickImg.png)
 
 Click a text document to view and edit it
 
