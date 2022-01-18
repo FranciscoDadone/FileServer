@@ -8,7 +8,7 @@ module.exports = {
           exec_mode: "cluster",
           watch: false,
           env: {
-              "PORT": 80,
+              "PORT": 3000,
               "NODE_ENV": "production",
               "MONGO_URI": ""
           }
