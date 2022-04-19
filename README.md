@@ -98,29 +98,25 @@ Click a text document to view and edit it
   npm install pm2 -g
   ```
 
-### Installation
-
+### Installation (Docker)
 1. Clone the repo.
    ```sh
    git clone https://github.com/FranciscoDadone/FileServer
    ```
-2. Install NPM packages
-   ```sh
-   npm install
-   ```
-3. Enter your MONGO_URI2 in `config/keys.js` or if you'r using PM2 in `ecosystem.config.js`.
-   ```JS
-   const MONGO_URI2 = 'ENTER YOUR MongoDB URI';
-   ```
-
-
+2. Edit the port of the app in ```docker-compose.yml``` file (default: 3000)
+3. Launch the app.
+  ```sh
+  docker-compose up -d
+  ```
 
 <!-- USAGE EXAMPLES -->
-## Usage
+## Usage (If you don't want docker and instead pm2)
 
 * If you want to change the port (default: 3000) you can edit the ´ecosystem.config.js´ file and change the port to whatever you want or if you'r not using pm2, you can go to ´bin/www´ and change ´var port = normalizePort(process.env.PORT || '3000');´ and change it there.
 
-To start the server use
+1. Edit config/keys to connect to mongo.
+
+2. Start the server
   ```sh
    npm run start
   ```
