@@ -79,6 +79,7 @@ Click a text document to view and edit it
 * [MongoDB](https://account.mongodb.com/account/login?n=%2Fv2%2F5e8f71fa634bbb370511fc1f&nextHash=%23clusters%2Fconnect%3FclusterId%3DCluster0)
 * [Bootstrap](https://getbootstrap.com)
 * [JQuery](https://jquery.com)
+* [Docker](https://docker.io)
 
 
 
@@ -105,9 +106,9 @@ Click a text document to view and edit it
    ```
 2. Edit the port of the app in ```docker-compose.yml``` file (default: 3000)
 3. Launch the app.
-  ```sh
-  docker-compose up -d
-  ```
+    ```sh
+    docker-compose up -d
+    ```
 
 <!-- USAGE EXAMPLES -->
 ## Usage (If you don't want docker and instead pm2)
