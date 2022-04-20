@@ -6,9 +6,9 @@ function init() {
     message = document.getElementById('message');
     divProgress = document.getElementById('div-progress');
 
-    fileInput.addEventListener('change', function () {
-        let xhr = new XMLHttpRequest(),
-            fd = new FormData();
+    fileInput.addEventListener('change', function (e) {
+        const xhr = new XMLHttpRequest();
+        const fd = new FormData();
         
         for(let i = 0; i < fileInput.files.length; i++) {
             fd.append('file', fileInput.files[i]);

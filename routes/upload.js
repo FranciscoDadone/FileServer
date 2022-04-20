@@ -72,7 +72,9 @@ router.get('/:path?', loginViaCookie, (req,res) => {
               }
 
             fs.readdir(dir, async (err, files) => {
-                if(err) { console.log(err); }
+                if(err) { 
+                    console.log(err);
+                }
                 try {
                     files.forEach(file => {
                         if (fs.lstatSync(path.resolve(dir, file)).isDirectory()) {
@@ -152,6 +154,10 @@ router.post('/:path?', loginViaCookie, (req, res) => {
                     route = "./public/storage/" + req.username + "/" + req.params.path.replace(/-/g, '/') + "/" + req.query.dirname + "/" + filename;
                     dir = "./public/storage/" + req.username + "/" + req.params.path.replace(/-/g, '/') + "/" + req.query.dirname;
                 }
+                
+                route = path.join(__dirname, "." + route);
+                dir = path.join(__dirname, "." + dir);
+
                 if(!fs.existsSync(dir)) {
                     console.log("Creating directory: " + dir);
                     shell.mkdir('-p', dir);
