@@ -21,6 +21,7 @@
     "express-fileupload": "^1.2.0",
     "filereader": "~0.10.3",
     "fs-extra": "~5.0.0",
+    "http-errors": "^2.0.0",
     "mongodb": "^3.6.3",
     "mongoose": "^5.11.12",
     "morgan": "~1.9.1",
